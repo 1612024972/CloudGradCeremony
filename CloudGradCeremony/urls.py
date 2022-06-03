@@ -22,7 +22,7 @@ urlpatterns = [
     # path('student/student_list', views.student_list),
     path('api/getData/<int:cid>', views.api_getData),
 
-    # path('student/student_add', views.student_add),
+    path('student/student_add', views.student_add),
     # path('class/class_init', views.class_init),
     # path('student/student_del_all', views.student_delete_all),
 ]
