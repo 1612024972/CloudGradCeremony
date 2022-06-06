@@ -66,7 +66,7 @@ h3 {
   width: 110%;
   left: 50%;
   transform: translate(-50%, 100%);
-  bottom: 0;
+  bottom: -5%;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item .student_theHat .hatWithTassel {
   position: relative;
@@ -87,4 +87,14 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+@keyframes turnTassel {
+  0% {
+    bottom: -5%;
+    transform: translate(-50%, 100%);
+  }
+  100% {
+    bottom: 100%;
+    transform: translate(-50%, 0%);
+  }
 }
