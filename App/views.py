@@ -2,7 +2,10 @@ from django.core.serializers import json
 from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-import os, sys, re, json
+import os
+import sys
+import re
+import json
 
 # Create your views here.
 from App.models import StudentInfo, ClassInfo
@@ -11,6 +14,9 @@ from App.models import StudentInfo, ClassInfo
 def index(request):
     return render(request, "index.html")
 
+
+def turn_the_tassel(request):
+    return render(request, "turn_the_tassel.html")
 
 # def student_list(request):
 #     stu_list = []
@@ -22,6 +28,7 @@ def index(request):
 #
 #     return render(request, "student_list.html", {"stu_list": stu_list})
 
+
 def api_getData(request, cid):
     data = {}
     cInfo = ClassInfo.objects.get(id=cid)  # 1801班cid为2
@@ -29,7 +36,8 @@ def api_getData(request, cid):
     print(data)
 
     stu_dict = {}
-    query_list = StudentInfo.objects.filter(class_id=cid)  # QuerySet类型[obj,obj]
+    query_list = StudentInfo.objects.filter(
+        class_id=cid)  # QuerySet类型[obj,obj]
     for obj in query_list:
         print(model_to_dict(obj))
         stu_dict.update({obj.name: model_to_dict(obj)})
@@ -49,9 +57,10 @@ def student_add(request):
     # 处理每个班级文件夹
     for class_name in dir_list:
         # 创建班级数据
-        pic_url="picture/class_pic/"+class_name+".webp"
-        audio_url="audios/"+class_name+".m4a"
-        ClassInfo.objects.create(class_name=class_name,pic_url=pic_url,audio_url=audio_url)
+        pic_url = "picture/class_pic/"+class_name+".webp"
+        audio_url = "audios/"+class_name+".m4a"
+        ClassInfo.objects.create(
+            class_name=class_name, pic_url=pic_url, audio_url=audio_url)
         # [20XXXXXXXXX张三,16XXXXX-李四]
         stu_pics_names = os.listdir(COOKED_FOLDER + class_name)
         for f in stu_pics_names:
@@ -59,7 +68,8 @@ def student_add(request):
             stu_name = re.findall('[\u4e00-\u9fa5]+', f)[0]
             stu_url = 'picture/student_pic/' + f
             stu_cid = ClassInfo.objects.get(class_name=class_name).id
-            StudentInfo.objects.create(number=stu_num, name=stu_name, pic_url=stu_url, class_name=class_name, class_id=stu_cid)
+            StudentInfo.objects.create(
+                number=stu_num, name=stu_name, pic_url=stu_url, class_name=class_name, class_id=stu_cid)
 
     # 通过文件名获得学生对象
     # for f in stu_pics:
