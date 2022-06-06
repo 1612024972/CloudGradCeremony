@@ -35,14 +35,14 @@ def api_getData(request, cid):
     data.update(model_to_dict(cInfo))
     print(data)
 
-    stu_dict = {}
+    stu_list = []
     query_list = StudentInfo.objects.filter(
         class_id=cid)  # QuerySet类型[obj,obj]
     for obj in query_list:
         print(model_to_dict(obj))
-        stu_dict.update({obj.name: model_to_dict(obj)})
+        stu_list.append(model_to_dict(obj))
     # print(stu_list)
-    data.update({"students": stu_dict})
+    data.update({"students": stu_list})
 
     return JsonResponse(data)
     # request, "student_list.html", {"data": data})
