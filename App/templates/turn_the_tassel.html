@@ -16,32 +16,10 @@
       </div>
       <div class="turnTheTassel-center">
         <div class="turnTheTassel-center-template">
-          <div class="template-group" style="background:red">
-            <div class="template-group-item" v-for="(item,index) in nowData" v-show="index < 5">
-              <img :src="item.pic_url">
-              <div class="name" v-html="item.student_name"></div>
-              <div class="student_theHat">
-                <div class="hatWithTassel">
-                  <img src="{% static 'picture/theHat.png' %}">
-                  <div class="tassel">
-                    <img src="{% static 'picture/tassel.png' %}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="template-troup-item-pic">
-                <div class="student_cloth">
-                  <img src="{% static 'picture/cloth.png' %}">
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="template-group" style="background:green">
-            <div class="template-group-item" v-for="(item,index) in nowData" v-show="index >= 5">
-              <img :src="item.pic_url">
-              <div class="name" v-html="item.student_name"></div>
-            </div>
-          </div>
+          <student_templatea
+            :students="allData.students"
+          >
+          </student_templatea>
         </div>
         <div class="turnTheTassel-center-template">
 
@@ -61,7 +39,7 @@
     const app = Vue.createApp({
       data(){
         return {
-          allData:[
+          /* allData:[
             {
               id:1,
               class_name:"计科1800",
@@ -98,65 +76,72 @@
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:0,
+                  id:5,
                   student_number:20180210001,
                   student_name:"李一",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:1,
+                  id:6,
                   student_number:20180210001,
                   student_name:"李二",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:2,
+                  id:7,
                   student_number:20180210001,
                   student_name:"李三",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:3,
+                  id:8,
                   student_number:20180210001,
                   student_name:"李四",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:4,
+                  id:9,
                   student_number:20180210001,
                   student_name:"李五",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:0,
+                  id:10,
                   student_number:20180210001,
                   student_name:"王一",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:1,
+                  id:11,
                   student_number:20180210001,
                   student_name:"王二",
                   pic_url:"../static/picture/student_pic/计科1800/20180210998-李四.jfif"
                 },
                 {
-                  id:2,
+                  id:12,
                   student_number:20180210001,
                   student_name:"王三",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:3,
+                  id:13,
                   student_number:20180210001,
                   student_name:"王四",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
                 },
                 {
-                  id:4,
+                  id:14,
                   student_number:20180210001,
                   student_name:"王五",
                   pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                }
+                },
+                {
+                  id:15,
+                  student_number:20180210001,
+                  student_name:"钱一",
+                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
+                },
+                
               ]
             },
             {
@@ -190,7 +175,8 @@
                 }
               ]
             }
-          ],
+          ], */
+          allData:[],
           nowClass:0,
           nowGroup:1
         }
@@ -202,11 +188,54 @@
         }
       },
       mounted(){
-        axios.get('https://127.0.0.1:8000/api/getData?cid=2').then(res=>{
-          console.log(res);
+        axios.get('http://localhost:8000/api/getData/1').then(res=>{
+          this.allData = res.data;
         })
       }
     });
+    app.component('student_templatea',{
+      props:['students'],
+      template:`
+        <div class="template-group" style="background:red">
+          <div class="template-group-item" v-for="(item,index) in this.students" v-show="index < 5">
+            <img :src="item.pic_url">
+            <div class="name" v-html="item.student_name"></div>
+            <div class="student_theHat">
+              <div class="hatWithTassel">
+                <img src="{% static 'picture/theHat.png' %}">
+                <div class="tassel">
+                  <img src="{% static 'picture/tassel.png' %}"/>
+                </div>
+              </div>
+            </div>
+            <div class="template-troup-item-pic">
+              <div class="student_cloth">
+                <img src="{% static 'picture/cloth.png' %}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="template-group" style="background:green">
+          <div class="template-group-item" v-for="(item,index) in this.students" v-show="index >= 5">
+            <img :src="item.pic_url">
+            <div class="name" v-html="item.student_name"></div>
+            <div class="student_theHat">
+              <div class="hatWithTassel">
+                <img src="{% static 'picture/theHat.png' %}">
+                <div class="tassel">
+                  <img src="{% static 'picture/tassel.png' %}"/>
+                </div>
+              </div>
+            </div>
+            <div class="template-troup-item-pic">
+              <div class="student_cloth">
+                <img src="{% static 'picture/cloth.png' %}">
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    })
     const vm = app.mount('#app');
 
   </script>

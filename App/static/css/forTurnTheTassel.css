@@ -34,6 +34,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item {
   position: relative;
@@ -64,8 +65,8 @@ h3 {
   position: absolute;
   width: 110%;
   left: 50%;
-  transform: translateX(-50%);
-  top: 0px;
+  transform: translate(-50%, 100%);
+  bottom: 0;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item .student_theHat .hatWithTassel {
   position: relative;
