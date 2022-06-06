@@ -17,7 +17,7 @@
       <div class="turnTheTassel-center">
         <div class="turnTheTassel-center-template">
           <student_templatea
-            :students="allData.students"
+            :students="nowData"
           >
           </student_templatea>
         </div>
@@ -35,11 +35,51 @@
   </div>
   <script src="{% static '/js/vue.js' %}"></script>
   <script src="{% static '/js/axios.min.js' %}"></script>
+  <script type="text/x-template" id="student_templatea">
+    <div class="template-group" style="background:red">
+      <div class="template-group-item" v-for="(item,index) in students" v-show="index < 5">
+        <img :src="'static/'+item.pic_url">
+        <div class="name" v-html="item.student_name"></div>
+        <div class="student_theHat">
+          <div class="hatWithTassel">
+            <img src="{% static 'picture/theHat.png' %}">
+            <div class="tassel">
+              <img src="{% static 'picture/tassel.png' %}"/>
+            </div>
+          </div>
+        </div>
+        <div class="template-troup-item-pic">
+          <div class="student_cloth">
+            <img src="{% static 'picture/cloth.png' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template-group" style="background:green">
+      <div :class="{'template-group-item':true,'animation_active':true}" v-for="(item,index) in students" v-show="index >= 5">
+        <img :src="'static/'+item.pic_url">
+        <div class="name" v-html="item.student_name"></div>
+        <div class="student_theHat">
+          <div class="hatWithTassel">
+            <img src="{% static 'picture/theHat.png' %}">
+            <div class="tassel">
+              <img src="{% static 'picture/tassel.png' %}"/>
+            </div>
+          </div>
+        </div>
+        <div class="template-troup-item-pic">
+          <div class="student_cloth">
+            <img src="{% static 'picture/cloth.png' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
   <script>
     const app = Vue.createApp({
       data(){
         return {
-          /* allData:[
+          allData:[
             {
               id:1,
               class_name:"计科1800",
@@ -175,10 +215,10 @@
                 }
               ]
             }
-          ], */
-          allData:[],
+          ],
+
           nowClass:0,
-          nowGroup:1
+          nowGroup:0
         }
       },
       computed:{
@@ -187,54 +227,20 @@
           return nowData.filter((item,index)=>index >= 10 * this.nowGroup && index < 10 * (this.nowGroup + 1))
         }
       },
-      mounted(){
+      /* mounted(){
         axios.get('http://localhost:8000/api/getData/1').then(res=>{
           this.allData = res.data;
         })
-      }
+      } */
     });
     app.component('student_templatea',{
       props:['students'],
-      template:`
-        <div class="template-group" style="background:red">
-          <div class="template-group-item" v-for="(item,index) in this.students" v-show="index < 5">
-            <img :src="'static/'+item.pic_url">
-            <div class="name" v-html="item.student_name"></div>
-            <div class="student_theHat">
-              <div class="hatWithTassel">
-                <img src="{% static 'picture/theHat.png' %}">
-                <div class="tassel">
-                  <img src="{% static 'picture/tassel.png' %}"/>
-                </div>
-              </div>
-            </div>
-            <div class="template-troup-item-pic">
-              <div class="student_cloth">
-                <img src="{% static 'picture/cloth.png' %}">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="template-group" style="background:green">
-          <div class="template-group-item" v-for="(item,index) in this.students" v-show="index >= 5">
-            <img :src="'static/'+item.pic_url">
-            <div class="name" v-html="item.student_name"></div>
-            <div class="student_theHat">
-              <div class="hatWithTassel">
-                <img src="{% static 'picture/theHat.png' %}">
-                <div class="tassel">
-                  <img src="{% static 'picture/tassel.png' %}"/>
-                </div>
-              </div>
-            </div>
-            <div class="template-troup-item-pic">
-              <div class="student_cloth">
-                <img src="{% static 'picture/cloth.png' %}">
-              </div>
-            </div>
-          </div>
-        </div>
-      `
+      template:'#student_templatea',
+      watch:{
+        students(val){
+          console.log(val);
+        }
+      }
     })
     const vm = app.mount('#app');
 
