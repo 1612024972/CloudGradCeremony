@@ -198,7 +198,7 @@
       template:`
         <div class="template-group" style="background:red">
           <div class="template-group-item" v-for="(item,index) in this.students" v-show="index < 5">
-            <img :src="item.pic_url">
+            <img :src="'static/'+item.pic_url">
             <div class="name" v-html="item.student_name"></div>
             <div class="student_theHat">
               <div class="hatWithTassel">
@@ -217,7 +217,7 @@
         </div>
         <div class="template-group" style="background:green">
           <div class="template-group-item" v-for="(item,index) in this.students" v-show="index >= 5">
-            <img :src="item.pic_url">
+            <img :src="'static/'+item.pic_url">
             <div class="name" v-html="item.student_name"></div>
             <div class="student_theHat">
               <div class="hatWithTassel">

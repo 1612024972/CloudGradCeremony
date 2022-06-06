@@ -66,7 +66,7 @@ def student_add(request):
         for f in stu_pics_names:
             stu_num = re.findall('\d+', f)[0]
             stu_name = re.findall('[\u4e00-\u9fa5]+', f)[0]
-            stu_url = 'picture/student_pic/' + f
+            stu_url = 'picture/student_pic/' + class_name+'/'+f
             stu_cid = ClassInfo.objects.get(class_name=class_name).id
             StudentInfo.objects.create(
                 number=stu_num, name=stu_name, pic_url=stu_url, class_name=class_name, class_id=stu_cid)
