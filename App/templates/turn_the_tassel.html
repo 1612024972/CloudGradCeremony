@@ -9,56 +9,39 @@
   <link href="{% static 'css/forTurnTheTassel.css' %}" rel="stylesheet">
 </head>
 <body>
+  <div class="bg">
+    <img src="{% static '/picture/bg1.jpg' %}">
+  </div>
   <div id="app">
     <div class="turnTheTassel">
       <div class="turnTheTassel-top">
-        <h1>这里布置头部</h1>
       </div>
       <div class="turnTheTassel-center">
         <div class="turnTheTassel-center-template">
           <student_templatea
-            :students="nowData"
+            :students="allData?.students?.filter((item,index)=>index >= 10 * this.nowGroup && index < 10 * (this.nowGroup + 1))"
+            :count="nowCount"
           >
           </student_templatea>
         </div>
-        <div class="turnTheTassel-center-template">
-
-        </div>
-        <div class="turnTheTassel-center-template">
-
-        </div>
+        <div class="turnTheTassel-center-template"></div>
+        <div class="turnTheTassel-center-template"></div>
       </div>
       <div class="turnTheTassel-bottom">
-        <h1>这里布置尾巴</h1>
       </div>
     </div>
   </div>
   <script src="{% static '/js/vue.js' %}"></script>
   <script src="{% static '/js/axios.min.js' %}"></script>
   <script type="text/x-template" id="student_templatea">
-    <div class="template-group" style="background:red">
-      <div class="template-group-item" v-for="(item,index) in students" v-show="index < 5">
+    <div class="template-group">
+      <div :class="{'template-group-item':true,'animation_active': count >= index}" v-for="(item,index) in students">
         <img :src="'static/'+item.pic_url">
-        <div class="name" v-html="item.student_name"></div>
-        <div class="student_theHat">
-          <div class="hatWithTassel">
-            <img src="{% static 'picture/theHat.png' %}">
-            <div class="tassel">
-              <img src="{% static 'picture/tassel.png' %}"/>
-            </div>
-          </div>
+        {% verbatim %}
+        <div class="name">
+          {{count}}
         </div>
-        <div class="template-troup-item-pic">
-          <div class="student_cloth">
-            <img src="{% static 'picture/cloth.png' %}">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="template-group" style="background:green">
-      <div :class="{'template-group-item':true,'animation_active':true}" v-for="(item,index) in students" v-show="index >= 5">
-        <img :src="'static/'+item.pic_url">
-        <div class="name" v-html="item.student_name"></div>
+        {% endverbatim %}
         <div class="student_theHat">
           <div class="hatWithTassel">
             <img src="{% static 'picture/theHat.png' %}">
@@ -79,171 +62,30 @@
     const app = Vue.createApp({
       data(){
         return {
-          allData:[
-            {
-              id:1,
-              class_name:"计科1800",
-              audio_url:null,
-              students:[
-                {
-                  id:0,
-                  student_number:20180210001,
-                  student_name:"张一",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:1,
-                  student_number:20180210001,
-                  student_name:"张二",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:2,
-                  student_number:20180210001,
-                  student_name:"张三",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:3,
-                  student_number:20180210001,
-                  student_name:"张四",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:4,
-                  student_number:20180210001,
-                  student_name:"张五",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:5,
-                  student_number:20180210001,
-                  student_name:"李一",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:6,
-                  student_number:20180210001,
-                  student_name:"李二",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:7,
-                  student_number:20180210001,
-                  student_name:"李三",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:8,
-                  student_number:20180210001,
-                  student_name:"李四",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:9,
-                  student_number:20180210001,
-                  student_name:"李五",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:10,
-                  student_number:20180210001,
-                  student_name:"王一",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:11,
-                  student_number:20180210001,
-                  student_name:"王二",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210998-李四.jfif"
-                },
-                {
-                  id:12,
-                  student_number:20180210001,
-                  student_name:"王三",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:13,
-                  student_number:20180210001,
-                  student_name:"王四",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:14,
-                  student_number:20180210001,
-                  student_name:"王五",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                {
-                  id:15,
-                  student_number:20180210001,
-                  student_name:"钱一",
-                  pic_url:"../static/picture/student_pic/计科1800/20180210997-王五.jfif"
-                },
-                
-              ]
-            },
-            {
-              id:1,
-              class_name:"计科1801",
-              audio_url:null,
-              students:[
-                {
-                  id:12,
-                  student_number:20180210001,
-                  student_name:"张三",
-                  pic_url:""
-                },
-                {
-                  id:12,
-                  student_number:20180210002,
-                  student_name:"李四",
-                  pic_url:""
-                },
-                {
-                  id:12,
-                  student_number:20180210003,
-                  student_name:"王五",
-                  pic_url:""
-                },
-                {
-                  id:12,
-                  student_number:20180210004,
-                  student_name:"钱六",
-                  pic_url:""
-                }
-              ]
-            }
-          ],
-
+          allData:[],
           nowClass:0,
-          nowGroup:0
+          nowGroup:0,
+          nowCount:0,
+          message:"Hello world"
         }
       },
-      computed:{
-        nowData(){
-          let nowData = this.allData[this.nowClass].students;
-          return nowData.filter((item,index)=>index >= 10 * this.nowGroup && index < 10 * (this.nowGroup + 1))
-        }
-      },
-      /* mounted(){
+      mounted(){
         axios.get('http://localhost:8000/api/getData/1').then(res=>{
           this.allData = res.data;
         })
-      } */
+        setInterval(()=>{
+          this.nowCount++;
+        },3000)
+      }
     });
     app.component('student_templatea',{
-      props:['students'],
+      props:['students','count'],
       template:'#student_templatea',
-      watch:{
-        students(val){
-          console.log(val);
-        }
+      mounted(){
+        console.log(this.count);
       }
     })
     const vm = app.mount('#app');
-
   </script>
 </body>
 </html>

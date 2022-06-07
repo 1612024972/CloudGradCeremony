@@ -1,11 +1,23 @@
 body {
   margin: 0;
   padding: 0;
+  position: relative;
+  overflow: hidden;
 }
 h1,
 h2,
 h3 {
   text-align: center;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -11;
+}
+.bg > img {
+  width: 100%;
+  height: 100%;
 }
 .turnTheTassel {
   width: 100vw;
@@ -16,15 +28,15 @@ h3 {
 }
 .turnTheTassel .turnTheTassel-top {
   width: 100%;
-  height: 20vh;
-  background: blue;
+  height: 33vh;
 }
 .turnTheTassel .turnTheTassel-center {
   flex: 1;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template {
-  width: 100%;
-  height: 100%;
+  margin: auto;
+  width: 920px;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -34,12 +46,13 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  flex-wrap: wrap;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item {
   position: relative;
-  height: 300px;
-  margin: 0 16px;
+  height: 200px;
+  margin: 4px 16px;
+  overflow: hidden;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item img {
   width: 100%;
@@ -55,10 +68,10 @@ h3 {
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item .student_cloth {
   width: 145%;
-  height: 110px;
+  height: 38%;
   position: absolute;
   left: 50%;
-  bottom: 0px;
+  bottom: -1px;
   transform: translateX(-50%);
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item .student_theHat {
@@ -66,7 +79,8 @@ h3 {
   width: 110%;
   left: 50%;
   transform: translate(-50%, 100%);
-  bottom: -5%;
+  bottom: -10%;
+  z-index: 111;
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item .student_theHat .hatWithTassel {
   position: relative;
@@ -79,8 +93,7 @@ h3 {
 }
 .turnTheTassel .turnTheTassel-bottom {
   width: 100%;
-  height: 10vh;
-  background: orange;
+  height: 16vh;
 }
 .name {
   position: absolute;
@@ -88,13 +101,40 @@ h3 {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-@keyframes turnTassel {
+.animation_active .student_theHat {
+  animation: hatRaise 2s;
+  animation-fill-mode: forwards;
+}
+.animation_active .student_theHat .hatWithTassel .tassel {
+  animation: turnTassel 3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+@keyframes hatRaise {
   0% {
     bottom: -5%;
     transform: translate(-50%, 100%);
   }
   100% {
     bottom: 100%;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, 100%);
+  }
+}
+@keyframes turnTassel {
+  0% {
+    left: 10%;
+    top: 35%;
+  }
+  50% {
+    left: 10%;
+    top: 35%;
+  }
+  75% {
+    left: 45%;
+    top: 0%;
+  }
+  100% {
+    left: 80%;
+    top: 35%;
   }
 }
