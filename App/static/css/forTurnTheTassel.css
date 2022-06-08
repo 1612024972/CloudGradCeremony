@@ -9,6 +9,13 @@ h2,
 h3 {
   text-align: center;
 }
+ul {
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  list-style-type: none;
+}
 .bg {
   position: absolute;
   width: 100%;
@@ -50,6 +57,7 @@ h3 {
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item {
   position: relative;
+  width: 138.92px;
   height: 200px;
   margin: 4px 16px;
   overflow: hidden;
@@ -102,22 +110,22 @@ h3 {
   transform: translate(-50%, -50%);
 }
 .animation_active .student_theHat {
-  animation: hatRaise 2s;
+  animation: hatRaise 0.3s;
   animation-fill-mode: forwards;
 }
 .animation_active .student_theHat .hatWithTassel .tassel {
-  animation: turnTassel 3s;
+  animation: turnTassel 0.3s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
 }
 @keyframes hatRaise {
   0% {
     bottom: -5%;
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 100%) rotate3d(0, 1, 0, 0deg);
   }
   100% {
     bottom: 100%;
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 100%) rotate3d(0, 1, 0, 0deg);
   }
 }
 @keyframes turnTassel {
@@ -137,4 +145,32 @@ h3 {
     left: 80%;
     top: 35%;
   }
+}
+.template-swiper {
+  overflow: hidden;
+  width: 100%;
+  height: 416px;
+  position: relative;
+}
+.template-swiper ul {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition-property: top;
+  transition-duration: 0.3s;
+  top: 0px;
+  left: 0px;
+}
+.template-swiper ul li {
+  width: 100%;
+  height: 416px;
+}
+.template-swiper ul li:nth-child(1) {
+  background: orange;
+}
+.template-swiper ul li:nth-child(2) {
+  background: pink;
+}
+.template-swiper ul li:nth-child(3) {
+  background: skyblue;
 }

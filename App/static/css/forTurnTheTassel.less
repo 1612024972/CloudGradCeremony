@@ -7,6 +7,13 @@ body{
 h1,h2,h3{
   text-align: center;
 }
+ul{
+  padding: 0;
+  margin: 0;
+  li{
+    list-style-type: none;
+  }
+}
 .bg{
   position: absolute;
   width: 100%;
@@ -44,6 +51,7 @@ h1,h2,h3{
         flex-wrap: wrap;
         .template-group-item{
           position: relative;
+          width: 138.92px;
           height: 200px;
           margin: 4px 16px;
           overflow: hidden;
@@ -87,6 +95,7 @@ h1,h2,h3{
         }
       }
     }
+
   }
   .turnTheTassel-bottom{
     width: 100%;
@@ -102,11 +111,11 @@ h1,h2,h3{
 
 .animation_active{
   .student_theHat{
-    animation: hatRaise 2s;
+    animation: hatRaise .3s;
     animation-fill-mode: forwards;
     .hatWithTassel{
       .tassel{
-        animation: turnTassel 3s;
+        animation: turnTassel .3s;
         animation-fill-mode: forwards;
         animation-timing-function:linear;
       }
@@ -142,5 +151,34 @@ h1,h2,h3{
   100%{
     left: 80%;
     top: 35%;
+  }
+}
+
+.template-swiper{
+  overflow: hidden;
+  width: 100%;
+  height: 416px;
+  position: relative;
+  ul{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition-property: top;
+    transition-duration:.3s;
+    top: 0px;
+    left: 0px;
+    li{
+      width: 100%;
+      height: 416px;
+      &:nth-child(1){
+        background: orange;
+      }
+      &:nth-child(2){
+        background: pink;
+      }
+      &:nth-child(3){
+        background: skyblue;
+      }
+    }
   }
 }
