@@ -57,11 +57,12 @@ def student_add(request):
     # 处理每个班级文件夹
     for class_name in dir_list:
         # 创建班级数据
-        pic_url = "picture/class_pic/"+class_name+".webp"
-        audio_url = "audios/"+class_name+".m4a"
+        pic_url = "picture/class_pic/"+class_name+".jpg"
+        audio_url = "audios/"+class_name+"音频.mp3"
         ClassInfo.objects.create(
             class_name=class_name, pic_url=pic_url, audio_url=audio_url)
         # [20XXXXXXXXX张三,16XXXXX-李四]
+        # 创建学生数据
         stu_pics_names = os.listdir(COOKED_FOLDER + class_name)
         for f in stu_pics_names:
             stu_num = re.findall('\d+', f)[0]
