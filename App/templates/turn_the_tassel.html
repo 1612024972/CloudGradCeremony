@@ -13,18 +13,14 @@
     <img src="{% static '/picture/bg1.jpg' %}">
   </div>
   <div id="app">
+    <div class="theAudio" v-if="allData.hasOwnProperty('audio_url')">
+      <audio :src="'static/' + allData.audio_url" autoplay="true"></audio>
+    </div>
     <div class="turnTheTassel">
       <div class="turnTheTassel-top">
       </div>
       <div class="turnTheTassel-center">
-        <!-- <div class="turnTheTassel-center-template">
-          <student_templatea
-            :students="allData?.students?.filter((item,index)=>index >= 10 * this.nowGroup && index < 10 * (this.nowGroup + 1))"
-            :count="nowCount"
-          >
-          </student_templatea>
-        </div> -->
-        <div class="template-swiper">
+        <div class="template-swiper" v-if="isShow">
           <ul ref="swiper">
             <li v-for="it in groupArrs">
               <div class="turnTheTassel-center-template">
@@ -37,6 +33,18 @@
             </li>
           </ul>
         </div>
+        {% verbatim %}
+        <div class="class_page" v-if="!isShow">
+          <div class="class_page_desc">
+            <h1>
+              {{allData.class_name}}
+            </h1>
+          </div>
+          <div class="class_pagae_button" @click="handleClick">
+            开始仪式
+          </div>
+        </div>
+        {% endverbatim %}
       </div>
       <div class="turnTheTassel-bottom">
       </div>
@@ -46,11 +54,16 @@
   <script src="{% static '/js/axios.min.js' %}"></script>
   <script type="text/x-template" id="student_templatea">
     <div class="template-group">
-      <div :class="{'template-group-item':true,'animation_active': count >= item.id}" v-for="(item,index) in students">
+      <div :class="{'template-group-item':true,'specialOne':students.length <= 3,'animation_active': count >= item.id}" v-for="(item,index) in students">
         <img :src="'static/'+item.pic_url">
         {% verbatim %}
-        <div class="name">
-          {{count}}
+        <div :class="{'student_info':true,'student_info_show':count >= item.id}">
+          <div class="student_info_name">
+            {{item.name}}
+          </div>
+          <div class="student_info_number">
+            {{item.number}}
+          </div>
         </div>
         {% endverbatim %}
         <div class="student_theHat">
@@ -72,13 +85,6 @@
   <script>
     const app = Vue.createApp({
       computed:{
-        groupNum(){
-          if(this.allData.hasOwnProperty('students')){
-            return Math.ceil(this.allData.students.length / 10)
-          }else{
-            return 0
-          }
-        },
         groupArrs(){
           let arrs = [];
           let tempArrs = [];
@@ -90,45 +96,47 @@
             }
           })
           return arrs
-        },
-        nowData(){
-          return this.allData.students.filter((item,index)=>index >= 10 * this.nowGroup && index < 10 * (this.nowGroup + 1))
         }
       },
       data(){
         return {
           allData:{},
-          nowClass:0,
+          nowClass:1,
           nowGroup:0,
           nowCount:0,
-          message:"Hello world",
+          isShow:false,
           timer:null
         }
       },
       created(){
         axios.get('http://localhost:8000/api/getData/1').then(res=>{
+          console.log(res.data);
           this.allData = res.data;
         })
-
-
-        /* let arrs = [];
-          let tempArrs
-          this.allData.students.forEach((item,index)=>{
-            tempArrs = [...tempArrs,item];
-            if(index % 10 == 0){
-              arrs = [...arrs,tempArrs];
-              tempArrs = [];
+        this.timer = null;
+      },
+      methods:{
+        handleClick(){
+          this.isShow = !this.isShow;
+          this.timer = setInterval(()=>{
+            this.nowCount++;
+            if(this.nowCount > (this.nowGroup + 1) * 10){
+              this.nowGroup++;
             }
-          })
-          console.log(arrs); */
-
-        this.timer = setInterval(()=>{
-          this.nowCount++;
-          if(this.nowCount > (this.nowGroup + 1) * 10){
-            this.nowGroup++;
-          }
-          this.nowCount >= this.allData.students.length && clearInterval(this.timer)
-        },500)
+            if(this.nowCount >= this.allData.students.length){
+              clearInterval(this.timer);
+              setTimeout(()=>{
+                this.nowCount = 0;
+                this.nowGroup = 0;
+                this.isShow = !this.isShow;
+                this.nowClass++;
+                axios.get('http://localhost:8000/api/getData/' + this.nowClass).then(res=>{
+                  this.allData = res.data;
+                })
+              },3000)
+            }
+          },1000)
+        }
       },
       watch:{
         nowGroup(val){
