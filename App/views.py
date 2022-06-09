@@ -18,6 +18,7 @@ def index(request):
 def turn_the_tassel(request):
     return render(request, "turn_the_tassel.html")
 
+
 # def student_list(request):
 #     stu_list = []
 #     query_list = StudentInfo.objects.all()  # QuerySet类型[obj,obj]
@@ -36,9 +37,12 @@ def api_getData(request, cid):
     print(data)
 
     stu_list = []
+    id = 0
     query_list = StudentInfo.objects.filter(
         class_id=cid)  # QuerySet类型[obj,obj]
     for obj in query_list:
+        id = id + 1
+        obj.id = id
         print(model_to_dict(obj))
         stu_list.append(model_to_dict(obj))
     # print(stu_list)
@@ -57,8 +61,8 @@ def student_add(request):
     # 处理每个班级文件夹
     for class_name in dir_list:
         # 创建班级数据
-        pic_url = "picture/class_pic/"+class_name+".jpg"
-        audio_url = "audios/"+class_name+"音频.mp3"
+        pic_url = "picture/class_pic/" + class_name + ".jpg"
+        audio_url = "audios/" + class_name + "音频.mp3"
         ClassInfo.objects.create(
             class_name=class_name, pic_url=pic_url, audio_url=audio_url)
         # [20XXXXXXXXX张三,16XXXXX-李四]
@@ -67,7 +71,7 @@ def student_add(request):
         for f in stu_pics_names:
             stu_num = re.findall('\d+', f)[0]
             stu_name = re.findall('[\u4e00-\u9fa5]+', f)[0]
-            stu_url = 'picture/student_pic/' + class_name+'/'+f
+            stu_url = 'picture/student_pic/' + class_name + '/' + f
             stu_cid = ClassInfo.objects.get(class_name=class_name).id
             StudentInfo.objects.create(
                 number=stu_num, name=stu_name, pic_url=stu_url, class_name=class_name, class_id=stu_cid)
