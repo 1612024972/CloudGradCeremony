@@ -101,7 +101,7 @@
       data(){
         return {
           allData:{},
-          nowClass:1,
+          nowClass:23,
           nowGroup:0,
           nowCount:0,
           isShow:false,
@@ -109,7 +109,7 @@
         }
       },
       created(){
-        axios.get('http://localhost:8000/api/getData/1').then(res=>{
+        axios.get('http://localhost:8000/api/getData/23').then(res=>{
           console.log(res.data);
           this.allData = res.data;
         })
