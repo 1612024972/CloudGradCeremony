@@ -14,7 +14,7 @@
   </div>
   <div id="app">
     <div class="theAudio" v-if="allData.hasOwnProperty('audio_url')">
-      <audio :src="'static/' + allData.audio_url" autoplay="true"></audio>
+      <audio ref="audio" :src="'static/' + allData.audio_url"></audio>
     </div>
     <div class="turnTheTassel">
       <div class="turnTheTassel-top">
@@ -118,12 +118,13 @@
       methods:{
         handleClick(){
           this.isShow = !this.isShow;
+          this.$refs.audio.play();
           this.timer = setInterval(()=>{
             this.nowCount++;
-            if(this.nowCount > (this.nowGroup + 1) * 10){
+            if(this.nowCount < this.allData.students.length && this.nowCount > (this.nowGroup + 1) * 10){
               this.nowGroup++;
             }
-            if(this.nowCount >= this.allData.students.length){
+            if(this.nowCount >= this.$refs.audio.duration){
               clearInterval(this.timer);
               setTimeout(()=>{
                 this.nowCount = 0;
@@ -133,14 +134,14 @@
                 axios.get('http://localhost:8000/api/getData/' + this.nowClass).then(res=>{
                   this.allData = res.data;
                 })
-              },3000)
+              },2000)
             }
-          },1000)
+          },1000);
         }
       },
       watch:{
         nowGroup(val){
-          this.$refs.swiper.style.top = -416 * val + "px";
+          this.$refs.swiper.style.top = -480 * val + "px";
         }
       }
     });

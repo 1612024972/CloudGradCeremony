@@ -43,7 +43,7 @@ ul li {
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template {
   margin: auto;
-  width: 920px;
+  width: 950px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -59,8 +59,8 @@ ul li {
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .template-group-item {
   position: relative;
-  width: 138.92px;
-  height: 200px;
+  width: 158px;
+  height: 230px;
   margin: 4px 16px;
   overflow: hidden;
   box-sizing: border-box;
@@ -107,7 +107,8 @@ ul li {
 }
 .turnTheTassel .turnTheTassel-center .turnTheTassel-center-template .template-group .specialOne {
   align-self: center;
-  transform: scale(2);
+  width: 285px;
+  height: 400px;
 }
 .turnTheTassel .turnTheTassel-bottom {
   width: 100%;
@@ -140,13 +141,13 @@ ul li {
   border: 4px solid yellow!important;
 }
 .animation_active .student_theHat {
-  animation: hatRaise 1s;
+  animation: hatRaise .5s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
 }
 .animation_active .student_theHat .hatWithTassel .tassel {
   transform-origin: top center;
-  animation: turnTassel 2s;
+  animation: turnTassel 1.3s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
 }
@@ -204,7 +205,7 @@ ul li {
 .template-swiper {
   overflow: hidden;
   width: 100%;
-  height: 416px;
+  height: 480px;
   position: relative;
 }
 .template-swiper ul {
@@ -218,16 +219,7 @@ ul li {
 }
 .template-swiper ul li {
   width: 100%;
-  height: 416px;
-  /* &:nth-child(1){
-        background: orange;
-      }
-      &:nth-child(2){
-        background: pink;
-      }
-      &:nth-child(3){
-        background: skyblue;
-      } */
+  height: 480px;
 }
 .class_page {
   margin-top: 80px;
