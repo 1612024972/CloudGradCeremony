@@ -32,7 +32,7 @@ def turn_the_tassel(request):
 
 def api_getData(request, cid):
     data = {}
-    cInfo = ClassInfo.objects.get(id=cid)  # 1801班cid为2
+    cInfo = ClassInfo.objects.get(id=cid)
     data.update(model_to_dict(cInfo))
     print(data)
 
