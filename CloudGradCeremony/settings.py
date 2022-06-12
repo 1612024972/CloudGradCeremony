@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-*kq8d1&#u@=m*aptt_hhclustz7pw--6s&y#%&or@hb_e0i4tr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -52,6 +52,26 @@ MIDDLEWARE = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+CORS_ALLOW_HEADERS = (
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with'
+)
+CSRF_TRUSTED_ORIGINS = ['https://54k32408i7.zicp.fun','127.0.0.1']
 
 
 ROOT_URLCONF = 'CloudGradCeremony.urls'
@@ -115,8 +135,6 @@ TIME_ZONE = 'Asia/Shanghai'  # 时区
 USE_I18N = True  # 语言
 USE_L10N = True  # 数据和时间格式
 USE_TZ = True  # 启用时区
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
