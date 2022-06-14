@@ -6,6 +6,11 @@
 * @license - https://icofont.com/license/
 */
 
+
+@font-face {
+  font-family: '鸿雁手写';
+  src: url("../font/HYSX.ttf");
+}
 @font-face
 {
  

@@ -7,17 +7,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link href="{% static 'css/forTurnTheTassel.css' %}" rel="stylesheet">
+  <link href="{% static 'css/icofont.css' %}" rel="stylesheet">
 </head>
 <body>
   <div class="bg">
-    <img src="{% static '/picture/bg1.jpg' %}">
+    <img src="{% static '/picture/bg3.jpg' %}">
   </div>
   <div id="app">
     <div class="theAudio" v-if="allData.hasOwnProperty('audio_url')">
       <audio ref="audio" :src="'static/' + allData.audio_url"></audio>
     </div>
     <div class="turnTheTassel">
-      <div class="turnTheTassel-top">
+      <div class="turnTheTassel-top" v-if="!isShow">
+        <div class="beforeAct">
+          <div class="beforeAct_A">
+            <img src="{% static '/picture/newElement/emblem.png' %}">
+          </div>
+          <div class="beforeAct_B">
+            <img src="{% static '/picture/newElement/TopText.png' %}">
+          </div>
+          <div class="beforeAct_C">
+            <img src="{% static '/picture/newElement/TopTextBefore.png' %}">
+          </div>
+        </div>
+      </div>
+      <div class="turnTheTassel-top turnTheTassel-topB" v-if="isShow">
+        <div class="afterAct">
+          <div class="beforeAct_A">
+            <img src="{% static '/picture/newElement/emblem.png' %}">
+          </div>
+          <div class="beforeAct_B">
+            <img src="{% static '/picture/newElement/TopText.png' %}">
+          </div>
+          <div class="beforeAct_C">
+            <img src="{% static '/picture/newElement/TopTextBefore.png' %}">
+          </div>
+        </div>
       </div>
       <div class="turnTheTassel-center">
         <div class="template-swiper" v-if="isShow">
@@ -33,20 +58,32 @@
             </li>
           </ul>
         </div>
-        {% verbatim %}
         <div class="class_page" v-if="!isShow">
+          {% verbatim %}
           <div class="class_page_desc">
             <h1>
               {{allData.class_name}}
             </h1>
           </div>
-          <div class="class_pagae_button" @click="handleClick">
+          <!-- <div class="class_pagae_button" @click="handleClick">
             开始仪式
+          </div> -->
+          {% endverbatim %}
+          <div class="class_pagae_button" @click="handleClick">
+            <img src="{% static 'icons/theHat.png' %}">
           </div>
         </div>
-        {% endverbatim %}
       </div>
       <div class="turnTheTassel-bottom">
+        <div>
+          <img src="{% static '/picture/newElement/bottomLeft.png' %}">
+        </div>
+        <div>
+          <img src="{% static '/picture/newElement/mascot.png' %}">
+        </div>
+        <div>
+          <img src="{% static '/picture/newElement/bottomRight.png' %}">
+        </div>
       </div>
     </div>
   </div>
@@ -66,17 +103,17 @@
           </div>
         </div>
         {% endverbatim %}
-        <div class="student_theHat">
-          <div class="hatWithTassel">
-            <img src="{% static 'picture/theHat.png' %}">
-            <div class="tassel">
-              <img src="{% static 'picture/tassel.png' %}"/>
-            </div>
-          </div>
-        </div>
         <div class="template-troup-item-pic">
           <div class="student_cloth">
             <img src="{% static 'picture/cloth.png' %}">
+          </div>
+          <div class="student_theHat">
+            <div class="hatWithTassel">
+              <img src="{% static 'picture/theHat.png' %}">
+              <div class="tassel">
+                <img src="{% static 'picture/tassel.png' %}"/>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -101,7 +138,7 @@
       data(){
         return {
           allData:{},
-          nowClass:1,
+          nowClass:19,
           nowGroup:0,
           nowCount:0,
           isShow:false,
@@ -109,14 +146,16 @@
         }
       },
       created(){
-        axios.get('http://localhost:8000/api/getData/1').then(res=>{
+        axios.get('http://localhost:8000/api/getData/19').then(res=>{
           console.log(res.data);
           this.allData = res.data;
         })
         this.timer = null;
+
       },
       methods:{
         handleClick(){
+          /* console.log(this.$refs.audio.duration); */
           this.isShow = !this.isShow;
           this.$refs.audio.play();
           this.timer = setInterval(()=>{
@@ -124,7 +163,7 @@
             if(this.nowCount < this.allData.students.length && this.nowCount > (this.nowGroup + 1) * 10){
               this.nowGroup++;
             }
-            if(this.nowCount >= this.$refs.audio.duration){
+            if(this.nowCount >= this.allData.students.length && this.$refs.audio.currentTime >= this.$refs.audio.duration){
               clearInterval(this.timer);
               setTimeout(()=>{
                 this.nowCount = 0;
@@ -134,14 +173,14 @@
                 axios.get('http://localhost:8000/api/getData/' + this.nowClass).then(res=>{
                   this.allData = res.data;
                 })
-              },2000)
+              },1000)
             }
-          },1000);
+          },1800);
         }
       },
       watch:{
         nowGroup(val){
-          this.$refs.swiper.style.top = -480 * val + "px";
+          this.$refs.swiper.style.top = -680 * val + "px";
         }
       }
     });
