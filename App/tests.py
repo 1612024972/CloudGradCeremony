@@ -7,5 +7,3 @@ def version():
     print(django.VERSION)
     print(django.get_version())
 
-
-version()

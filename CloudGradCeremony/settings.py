@@ -71,7 +71,7 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with'
 )
-CSRF_TRUSTED_ORIGINS = ['https://54k32408i7.zicp.fun','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://54k32408i7.zicp.fun','http://127.0.0.1']
 
 
 ROOT_URLCONF = 'CloudGradCeremony.urls'

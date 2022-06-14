@@ -25,9 +25,9 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('class_name', 'pic_url', 'audio_url', 'class_des')
+    list_display = ('id','class_name', 'pic_url', 'audio_url', 'class_des')
     list_filter = ()
-    search_fields = ('class_name', 'class_number')
+    search_fields = ('id','class_name')
     fieldsets = (
         (None, {
             'fields': (

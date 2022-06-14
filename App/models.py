@@ -23,8 +23,9 @@ class StudentInfo(models.Model):
 
 
 class ClassInfo(models.Model):
-    # class_number = models.IntegerField(unique=True)
+    cid = models.IntegerField(null=True,blank=True)
     class_name = models.CharField(max_length=32)
     pic_url = models.CharField(max_length=64, null=True, blank=True)
     audio_url = models.CharField(max_length=64, null=True, blank=True)
     class_des = models.CharField(max_length=64, null=True, blank=True)
+
