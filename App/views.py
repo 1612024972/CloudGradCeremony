@@ -33,8 +33,13 @@ def turn_the_tassel(request):
 def api_getData(request, cid):
     data = {}
     cInfo = ClassInfo.objects.get(id=cid)
+    print(cInfo.class_name)
+    print(type(cInfo.class_name))
+    if re.findall('[\u4e00-\u9fa5]+', cInfo.class_name)[0]=="计科专接本":
+        cInfo.class_name="计科"+re.findall('[\d]+', cInfo.class_name)[0]+"(专接本)"
+
     data.update(model_to_dict(cInfo))
-    print(data)
+    #print(data)
 
     stu_list = []
     id = 0
